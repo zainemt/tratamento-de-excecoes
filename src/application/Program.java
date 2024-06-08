@@ -10,8 +10,8 @@ import model.entities.Reservation;
 public class Program {
 
 	public static void main(String[] args) throws ParseException {
-		//ATIVIDADE - PRIMEIRA SOLUÇÃO PARA O TRATAMENTO DE EXCEÇÕES, SOLUÇÃO MUITO RUIM
-			//TODOS OS "TRATAMENTOS DE EXCEÇÕES" SENDO FEITOS DIRETAMENTE NO CÓDIGO
+		//ATIVIDADE - SEGUNDA SOLUÇÃO PARA O TRATAMENTO DE EXCEÇÕES, SOLUÇÃO RUIM
+			//TODOS OS TRATAMENTOS DE EXCEÇÕES SERÃO PASSADOS PARA A CLASSE "RESERVA", MAS, EM MÉTODOS
 		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -34,17 +34,15 @@ public class Program {
 			checkIn = formato.parse(sc.next());
 			System.out.print("Check-out date: ");
 			checkOut = formato.parse(sc.next());
+				
+			String error = reservation.updateDates(checkIn, checkOut);
 			
-			Date now = new Date();
-			if (checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("Error in reservation: Reservation dates for update must be future dates");
-			} else if (!checkOut.after(checkIn)) {
-				System.out.println("Error in reservation: Check-out date must be after check-in date");
+			if (error != null) {
+				System.out.println(error);
 			} else {
-				reservation.updateDates(checkIn, checkOut);
 				System.out.println("Reservation: " + reservation.toString());
 			}
-			
+		
 		}
 		
 		
