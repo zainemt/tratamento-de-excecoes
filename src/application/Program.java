@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
 public class Program {
 
@@ -44,9 +45,12 @@ public class Program {
 		catch (ParseException e) {
 			System.out.println("Invalid date format");
 		}
-		catch (IllegalArgumentException e) {
-			//caso o bloco try tenha uma exceção lançada, esse bloco catch é acionado, interrompendo a execução
+		catch (DomainException e) {
+			//captura da exceção que foi propagada pela classe
 			System.out.println(e.getMessage());
+		}
+		catch (RuntimeException e) {
+			System.out.println("Unexpected error");
 		}
 		
 		
